@@ -1,7 +1,7 @@
 from utils import *
 
 
-def eliminate(values):
+def eliminate(values: dict) -> dict:
     """Eliminate values from peers of each box with a single value.
 
     Go through all the boxes, and whenever there is a box with a single value,
@@ -12,10 +12,13 @@ def eliminate(values):
     Returns:
         Resulting Sudoku in dictionary form after eliminating values.
     """
+    eliminated_grid = values
 
     while True:
         none_deleted = True
-        eliminated_grid = ''
+        for key in values:
+            print(key, values[key])
+            pass
 
         if none_deleted:
             break
@@ -25,4 +28,4 @@ def eliminate(values):
 
 if __name__ == '__main__':
     grid = '..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3..'
-    eliminate(grid_values(grid))
+    display(eliminate(grid_values(grid)))

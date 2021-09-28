@@ -33,7 +33,7 @@ def display(values):
     return
 
 
-def grid_values(grid):
+def grid_values(grid: str) -> dict:
     """Convert grid string into {<box>: <value>} dict with '123456789' value for empties.
 
     Args:
@@ -52,3 +52,8 @@ def grid_values(grid):
             values.append(c)
     assert len(values) == 81
     return dict(zip(boxes, values))
+
+
+if __name__ == '__main__':
+    print(units)
+    print(peers)
