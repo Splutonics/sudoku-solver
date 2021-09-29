@@ -16,9 +16,11 @@ def eliminate(values: dict) -> dict:
 
     while True:
         none_deleted = True
-        for key in values:
-            print(key, values[key])
-            pass
+        for key in eliminated_grid:
+            if len(eliminated_grid[key])==1:
+                for peer in peers[key]:
+                     pass
+
 
         if none_deleted:
             break
