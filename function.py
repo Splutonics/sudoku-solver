@@ -12,20 +12,20 @@ def eliminate(values: dict) -> dict:
     Returns:
         Resulting Sudoku in dictionary form after eliminating values.
     """
-    eliminated_grid = values
 
     while True:
         none_deleted = True
-        for key in eliminated_grid:
-            if len(eliminated_grid[key])==1:
-                for peer in peers[key]:
-                     pass
-
+        for key in values:
+           if len(values[key])==1:
+               for peer in peers[key]:
+                   if values[key] in values[peer]:
+                      values[peer] = values[peer].replace(values[key],'')
+                      none_deleted = False
 
         if none_deleted:
-            break
+          break
 
-    return eliminated_grid
+    return values
 
 
 if __name__ == '__main__':
