@@ -90,12 +90,7 @@ def naked_twins(values):
                         temp_values[peer] = temp_values[peer].replace(
                             digit, '')
 
-    # print(naked_twin_pairs)
-    # print(naked_twin_boxes)
-    # print('Before naked twin removal:')
-    # display(values)
-    # print('After naked twin removal:')
-    # display(temp_values)
+    print('Before naked twin removal:')
     return temp_values
 
 
