@@ -1,5 +1,4 @@
 
-# from typing_extensions import _AnnotatedAlias
 from utils import *
 
 
@@ -56,44 +55,13 @@ def naked_twins(values):
     https://github.com/udacity/artificial-intelligence/blob/master/Projects/1_Sudoku/pseudocode.md
     """
     temp_values = values.copy()
-    naked_twin_pairs = set()
-    checked_pairs = set()
-    for unit in unitlist:
-        # if there are two or more unsolved boxes in a unit
-        if len([box for box in unit if len(values[box]) > 1]) > 1:
-            for box1 in unit:
-                for box2 in unit:
-                    # compare every box against all others in the unit
-                    # skip comparing the same box against itself
-                    # skip comparing already checked box pairs
-                    # had to look up how to have sets within sets, used this stackoverflow post
-                    # https://stackoverflow.com/questions/37105696/how-to-have-a-set-of-sets-in-python/37105728
-                    if box1 != box2 and set([box1, box2]) not in checked_pairs:
-                        # check if there is an equal pair of length 2
-                        if len(values[box1]) == 2 and values[box1] == values[box2]:
-                            naked_twin_pairs.add(frozenset([box1, box2]))
-                        checked_pairs.add(frozenset([box1, box2]))
-
-    # convert the naked twin pair set to a list
-    naked_twin_pairs = [[box for box in pair] for pair in naked_twin_pairs]
-    naked_twin_boxes = []
-    for pair in naked_twin_pairs:
-        for box in pair:
-            naked_twin_boxes.append(box)
-
-    # now, look eliminate the values of the naked_twins from their peers
-    for pair in naked_twin_pairs:
-        for box in pair:
-            for peer in peers[box]:
-                if peer not in naked_twin_boxes:
-                    for digit in values[box]:
+    for box1 in values:
+        for box2 in peers[box1]:
+            if values[box1] == values[box2] and len(values[box1]) == 2:
+                for peer in set(peers[box1]).intersection(peers[box2]):
+                    for digit in values[box1]:
                         temp_values[peer] = temp_values[peer].replace(
                             digit, '')
-
-    print('Before naked twin removal:')
-    display(values)
-    print('After naked twin removal:')
-    display(temp_values)
     return temp_values
 
 
@@ -171,7 +139,7 @@ def reduce_puzzle(values):
             [box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         values = only_choice(values)
-        # values = naked_twins(values)
+        values = naked_twins(values)
         solved_values_after = len(
             [box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
@@ -249,9 +217,6 @@ if __name__ == "__main__":
         display(result)
     else:
         print('No solution')
-    # display(grid2values(diag_sudoku_grid))
-    # result = solve(diag_sudoku_grid)
-    # display(result)
 
     try:
         import PySudoku
