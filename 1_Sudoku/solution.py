@@ -58,7 +58,7 @@ def naked_twins(values):
     for box1 in values:
         for box2 in peers[box1]:
             if values[box1] == values[box2] and len(values[box1]) == 2:
-                for peer in set(peers[box1]).intersection(peers[box2]):
+                for peer in set(peers[box1]).intersection(set(peers[box2])):
                     for digit in values[box1]:
                         temp_values[peer] = temp_values[peer].replace(
                             digit, '')
